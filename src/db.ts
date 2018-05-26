@@ -2,11 +2,12 @@ import { createConnection } from 'typeorm'
 import { DefaultNamingStrategy } from 'typeorm/naming-strategy/DefaultNamingStrategy'
 import { NamingStrategyInterface } from 'typeorm/naming-strategy/NamingStrategyInterface'
 import { snakeCase } from 'typeorm/util/StringUtils'
+import Games from './pages/entity'
 
 class CustomNamingStrategy extends DefaultNamingStrategy implements NamingStrategyInterface {
 
   tableName(targetName: string, userSpecifiedName: string): string {
-    return userSpecifiedName ? userSpecifiedName : snakeCase(targetName) + 's';
+    return userSpecifiedName ? userSpecifiedName : snakeCase(targetName);
   }
 
   columnName(propertyName: string, customName: string, embeddedPrefixes: string[]): string {
@@ -26,7 +27,9 @@ export default () =>
   createConnection({
       type: "postgres",
       url: process.env.DATABASE_URL || 'postgres://postgres:secret@localhost:5432/postgres',
-      entities: [],
+      entities: [
+          Games
+      ],
       synchronize: true,
       logging: true,
       namingStrategy: new CustomNamingStrategy()
