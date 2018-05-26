@@ -20,6 +20,10 @@ const defaultBoard = [
     ['o', 'o', 'o'],
     ['o', 'o', 'o']
 ];
+const moves = (board1, board2) => board1
+    .map((row, y) => row.filter((cell, x) => board2[y][x] !== cell))
+    .reduce((a, b) => a.concat(b))
+    .length;
 let GameController = class GameController {
     getPage(id) {
         return entity_1.default.findOne(id);
@@ -42,9 +46,9 @@ let GameController = class GameController {
         const color = update.color;
         if (color !== undefined && randomcolor.indexOf(color) < 0)
             throw new routing_controllers_1.NotFoundError('Incorrect color');
-        const board = update.board;
-        if (board === "")
-            throw new routing_controllers_1.NotFoundError('Cannot find board');
+        const movesmade = moves(game.board, update.board);
+        if (movesmade !== 1)
+            throw new routing_controllers_1.BadRequestError('HTTP 400 Bad Request');
         update.id = undefined;
         return entity_1.default.merge(game, update).save();
     }

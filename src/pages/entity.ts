@@ -11,7 +11,6 @@ export default class Games extends BaseEntity {
   @Column('text', {nullable:false})
   name: string
 
-  //@Contains('red', 'blue', color)	
   @Column('text', {nullable:false})
   color: string
 
