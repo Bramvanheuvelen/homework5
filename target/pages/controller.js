@@ -15,6 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
 const entity_1 = require("./entity");
 const randomcolor = ['red', 'blue', 'green', 'yellow', 'magenta'];
+const defaultBoard = [
+    ['o', 'o', 'o'],
+    ['o', 'o', 'o'],
+    ['o', 'o', 'o']
+];
 let GameController = class GameController {
     getPage(id) {
         return entity_1.default.findOne(id);
@@ -27,6 +32,7 @@ let GameController = class GameController {
         const game = new entity_1.default();
         game.name = name;
         game.color = randomcolor[Math.floor(Math.random() * randomcolor.length)];
+        game.board = JSON.stringify(defaultBoard);
         return game.save();
     }
     async updateGame(id, update) {
@@ -34,8 +40,8 @@ let GameController = class GameController {
         if (!game)
             throw new routing_controllers_1.NotFoundError('Cannot find game');
         const color = update.color;
-        if (color === "")
-            throw new routing_controllers_1.NotFoundError('Cannot find color');
+        if (color !== undefined && randomcolor.indexOf(color))
+            throw new routing_controllers_1.NotFoundError('Incorrect color');
         const board = update.board;
         if (board === "")
             throw new routing_controllers_1.NotFoundError('Cannot find board');

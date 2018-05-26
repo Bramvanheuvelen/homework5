@@ -3,6 +3,13 @@ import Game from './entity'
 
 const randomcolor=['red','blue','green','yellow','magenta']
 
+const defaultBoard = [
+    ['o', 'o', 'o'],
+    ['o', 'o', 'o'],
+    ['o', 'o', 'o']
+  ]
+  
+
 @JsonController()
 export default class GameController {
 
@@ -27,6 +34,7 @@ export default class GameController {
     const game = new Game()
     game.name = name
     game.color = randomcolor[Math.floor(Math.random() * randomcolor.length)]
+    game.board = JSON.stringify(defaultBoard)
     return game.save()
     }
 
@@ -39,7 +47,8 @@ export default class GameController {
     if (!game) throw new NotFoundError('Cannot find game')
 
     const color = update.color
-    if (color === "") throw new NotFoundError('Cannot find color')
+    if (color !== undefined && randomcolor.indexOf(color)) 
+    throw new NotFoundError('Incorrect color')
 
     const board = update.board
     if (board === "") throw new NotFoundError('Cannot find board')
