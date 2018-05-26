@@ -47,7 +47,7 @@ export default class GameController {
     if (!game) throw new NotFoundError('Cannot find game')
 
     const color = update.color
-    if (color !== undefined && randomcolor.indexOf(color)) 
+    if (color !== undefined && randomcolor.indexOf(color) <0) 
     throw new NotFoundError('Incorrect color')
 
     const board = update.board

@@ -40,7 +40,7 @@ let GameController = class GameController {
         if (!game)
             throw new routing_controllers_1.NotFoundError('Cannot find game');
         const color = update.color;
-        if (color !== undefined && randomcolor.indexOf(color))
+        if (color !== undefined && randomcolor.indexOf(color) < 0)
             throw new routing_controllers_1.NotFoundError('Incorrect color');
         const board = update.board;
         if (board === "")
