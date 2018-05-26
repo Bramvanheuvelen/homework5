@@ -41,6 +41,11 @@ export default class GameController {
     const color = update.color
     if (color === "") throw new NotFoundError('Cannot find color')
 
+    const board = update.board
+    if (board === "") throw new NotFoundError('Cannot find board')
+
+    update.id = undefined
+
     return Game.merge(game, update).save()
 }
 }

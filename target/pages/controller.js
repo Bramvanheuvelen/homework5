@@ -36,6 +36,10 @@ let GameController = class GameController {
         const color = update.color;
         if (color === "")
             throw new routing_controllers_1.NotFoundError('Cannot find color');
+        const board = update.board;
+        if (board === "")
+            throw new routing_controllers_1.NotFoundError('Cannot find board');
+        update.id = undefined;
         return entity_1.default.merge(game, update).save();
     }
 };
