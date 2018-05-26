@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
 const entity_1 = require("./entity");
+const randomcolor = ['red', 'blue', 'green', 'yellow', 'magenta'];
 let GameController = class GameController {
     getPage(id) {
         return entity_1.default.findOne(id);
@@ -22,7 +23,10 @@ let GameController = class GameController {
         const games = entity_1.default.find();
         return { games };
     }
-    createGame(game) {
+    createGame(name) {
+        const game = new entity_1.default();
+        game.name = name;
+        game.color = randomcolor[Math.floor(Math.random() * randomcolor.length)];
         return game.save();
     }
     async updateGame(id, update) {
@@ -48,9 +52,9 @@ __decorate([
 __decorate([
     routing_controllers_1.Post('/games'),
     routing_controllers_1.HttpCode(201),
-    __param(0, routing_controllers_1.Body()),
+    __param(0, routing_controllers_1.BodyParam("name")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [entity_1.default]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], GameController.prototype, "createGame", null);
 __decorate([

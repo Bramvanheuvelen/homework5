@@ -1,5 +1,7 @@
-import { JsonController, Get, Post, Put, Body, HttpCode, Param, NotFoundError } from 'routing-controllers'
+import { JsonController, Get, Post, Put, Body, BodyParam, HttpCode, Param, NotFoundError } from 'routing-controllers'
 import Game from './entity'
+
+const randomcolor=['red','blue','green','yellow','magenta']
 
 @JsonController()
 export default class GameController {
@@ -20,9 +22,11 @@ export default class GameController {
     @Post('/games')
     @HttpCode(201)
     createGame(
-    @Body() game: Game
-    //randomcolor {"red","blue","green","yellow","maganta"}
-    ) {
+    @BodyParam("name") name : string
+    ){
+    const game = new Game()
+    game.name = name
+    game.color = randomcolor[Math.floor(Math.random() * randomcolor.length)]
     return game.save()
     }
 
