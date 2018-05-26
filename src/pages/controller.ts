@@ -37,6 +37,10 @@ export default class GameController {
     ) {
     const game = await Game.findOne(id)
     if (!game) throw new NotFoundError('Cannot find game')
+
+    const color = update.color
+    if (color === null) throw new NotFoundError('Cannot find color')
+
     return Game.merge(game, update).save()
 }
 }

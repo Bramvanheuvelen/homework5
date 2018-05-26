@@ -33,6 +33,9 @@ let GameController = class GameController {
         const game = await entity_1.default.findOne(id);
         if (!game)
             throw new routing_controllers_1.NotFoundError('Cannot find game');
+        const color = update.color;
+        if (color === null)
+            throw new routing_controllers_1.NotFoundError('Cannot find color');
         return entity_1.default.merge(game, update).save();
     }
 };
