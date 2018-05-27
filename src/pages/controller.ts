@@ -1,6 +1,5 @@
-import { JsonController, Get, Post, Put, Body, BodyParam, HttpCode, Param, NotFoundError, HttpError, BadRequestError } from 'routing-controllers'
+import { JsonController, Get, Post, Put, Body, BodyParam, HttpCode, Param, NotFoundError, BadRequestError } from 'routing-controllers'
 import Game from './entity'
-import { BADRESP } from 'dns';
 
 const randomcolor=['red','blue','green','yellow','magenta']
 
@@ -56,7 +55,6 @@ export default class GameController {
     if (color !== undefined && randomcolor.indexOf(color) <0) 
     throw new NotFoundError('Incorrect color')
 
-    // const board = update.board
     const movesmade = moves(game.board, update.board)
     if( movesmade !== 1) throw new BadRequestError('HTTP 400 Bad Request')
 
