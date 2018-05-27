@@ -45,8 +45,8 @@ let GameController = class GameController {
         const color = update.color;
         if (color !== undefined && randomcolor.indexOf(color) < 0)
             throw new routing_controllers_1.NotFoundError('Incorrect color');
-        const moves1 = moves(game.board, update.board);
-        if (moves1 !== 1)
+        const makeMove = moves(game.board, update.board);
+        if (makeMove !== 1)
             throw new routing_controllers_1.BadRequestError('HTTP 400 Bad Request');
         update.id = undefined;
         return entity_1.default.merge(game, update).save();

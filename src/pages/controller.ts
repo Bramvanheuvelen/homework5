@@ -49,8 +49,8 @@ export default class GameController {
     if (color !== undefined && randomcolor.indexOf(color) <0) 
     throw new NotFoundError('Incorrect color')
 
-    const moves1 = moves(game.board, update.board)
-    if( moves1 !== 1) throw new BadRequestError('HTTP 400 Bad Request')
+    const makeMove = moves(game.board, update.board)
+    if( makeMove !== 1) throw new BadRequestError('HTTP 400 Bad Request')
     
     update.id = undefined
 
