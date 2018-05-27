@@ -25,15 +25,14 @@ const moves = (board1, board2) => board1
     .reduce((a, b) => a.concat(b))
     .length;
 let GameController = class GameController {
-    getPage(id) {
-        return entity_1.default.findOne(id);
-    }
     allGames() {
         const games = entity_1.default.find();
         return { games };
     }
     createGame(name) {
         const game = new entity_1.default();
+        if (!name)
+            throw new routing_controllers_1.NotFoundError('Cannot create game without a name');
         game.name = name;
         game.color = randomcolor[Math.floor(Math.random() * randomcolor.length)];
         game.board = defaultBoard;
@@ -53,13 +52,6 @@ let GameController = class GameController {
         return entity_1.default.merge(game, update).save();
     }
 };
-__decorate([
-    routing_controllers_1.Get('/games/:id'),
-    __param(0, routing_controllers_1.Param('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
-], GameController.prototype, "getPage", null);
 __decorate([
     routing_controllers_1.Get('/games'),
     __metadata("design:type", Function),

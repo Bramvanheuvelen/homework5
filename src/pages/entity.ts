@@ -17,4 +17,5 @@ export default class Games extends BaseEntity {
   @IsJSON()
   @Column('json', {nullable:false})
   board: string[][]
+  
 }
