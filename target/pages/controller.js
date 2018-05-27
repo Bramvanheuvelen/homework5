@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
 const entity_1 = require("./entity");
+const querystring_1 = require("querystring");
 const randomcolor = ['red', 'blue', 'green', 'yellow', 'magenta'];
 const defaultBoard = [
     ['o', 'o', 'o'],
@@ -36,7 +37,7 @@ let GameController = class GameController {
         const game = new entity_1.default();
         game.name = name;
         game.color = randomcolor[Math.floor(Math.random() * randomcolor.length)];
-        game.board = JSON.stringify(defaultBoard);
+        game.board = querystring_1.stringify(defaultBoard);
         return game.save();
     }
     async updateGame(id, update) {
@@ -46,8 +47,8 @@ let GameController = class GameController {
         const color = update.color;
         if (color !== undefined && randomcolor.indexOf(color) < 0)
             throw new routing_controllers_1.NotFoundError('Incorrect color');
-        const movesmade = moves(game.board, update.board);
-        if (movesmade !== 1)
+        const moves1 = moves(game.board, update.board);
+        if (moves1 !== 1)
             throw new routing_controllers_1.BadRequestError('HTTP 400 Bad Request');
         update.id = undefined;
         return entity_1.default.merge(game, update).save();

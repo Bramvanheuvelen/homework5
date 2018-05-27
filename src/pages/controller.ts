@@ -1,5 +1,6 @@
 import { JsonController, Get, Post, Put, Body, BodyParam, HttpCode, Param, NotFoundError, BadRequestError } from 'routing-controllers'
 import Game from './entity'
+import { stringify } from 'querystring';
 
 const randomcolor=['red','blue','green','yellow','magenta']
 
@@ -8,8 +9,8 @@ const defaultBoard = [
     ['o', 'o', 'o'],
     ['o', 'o', 'o']
   ]
-  
-const moves = (board1, board2) => 
+
+  const moves = (board1, board2) => 
   board1
   .map((row, y) => row.filter((cell, x) => board2[y][x] !== cell))
   .reduce((a, b) => a.concat(b))
@@ -39,7 +40,7 @@ export default class GameController {
     const game = new Game()
     game.name = name
     game.color = randomcolor[Math.floor(Math.random() * randomcolor.length)]
-    game.board = JSON.stringify(defaultBoard)
+    game.board = stringify(defaultBoard)
     return game.save()
     }
 
@@ -55,11 +56,11 @@ export default class GameController {
     if (color !== undefined && randomcolor.indexOf(color) <0) 
     throw new NotFoundError('Incorrect color')
 
-    const movesmade = moves(game.board, update.board)
-    if( movesmade !== 1) throw new BadRequestError('HTTP 400 Bad Request')
-
+    const moves1 = moves(game.board, update.board)
+    if( moves1 !== 1) throw new BadRequestError('HTTP 400 Bad Request')
+    
     update.id = undefined
 
     return Game.merge(game, update).save()
-}
+    }
 }
