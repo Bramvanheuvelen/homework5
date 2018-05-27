@@ -14,7 +14,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
 const entity_1 = require("./entity");
-const querystring_1 = require("querystring");
 const randomcolor = ['red', 'blue', 'green', 'yellow', 'magenta'];
 const defaultBoard = [
     ['o', 'o', 'o'],
@@ -37,7 +36,7 @@ let GameController = class GameController {
         const game = new entity_1.default();
         game.name = name;
         game.color = randomcolor[Math.floor(Math.random() * randomcolor.length)];
-        game.board = querystring_1.stringify(defaultBoard);
+        game.board = defaultBoard;
         return game.save();
     }
     async updateGame(id, update) {

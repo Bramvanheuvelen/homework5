@@ -40,7 +40,7 @@ export default class GameController {
     const game = new Game()
     game.name = name
     game.color = randomcolor[Math.floor(Math.random() * randomcolor.length)]
-    game.board = stringify(defaultBoard)
+    game.board = defaultBoard
     return game.save()
     }
 

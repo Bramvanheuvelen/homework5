@@ -29,7 +29,7 @@ __decorate([
 __decorate([
     class_validator_1.IsJSON(),
     typeorm_1.Column('json', { nullable: false }),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], Games.prototype, "board", void 0);
 Games = __decorate([
     typeorm_1.Entity()
